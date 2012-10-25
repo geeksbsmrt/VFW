@@ -1,3 +1,7 @@
+//Adam Crawford
+//VFW 1211
+//WebApp Part 1
+//10/25/2012
 var sliderPosition = function (slider, textbox) { //Places correct numeric value in text box next to slider
 	//look at current page for value of the argument id's set them to = moving the slider changes the number
 	var x = document.getElementById(textbox);
