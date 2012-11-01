@@ -25,14 +25,14 @@
                 <h2>Allows creation of a new match and referee assignment</h2>
             </hgroup>
         </header>
-                <form action="#" method="post">
+                <form action="#" method="post" id="createGame">
             <fieldset>
                 <legend>Game Information</legend>
                 <ul>
                     <li><label for="gdate">Game Date: </label><input type="date" id="gdate" /></li>
                     <li><label for="gtime">Game Time: </label><input type="time" id="gtime" /></li>
                     <li><label for="gfield">Game Field: </label><input type="text" id="gfield" /></li>
-                    <li id="gAge"><label for="gAge">Age Group: </label></li>
+                    <li id="gage"><label for="gage">Age Group: </label></li>
                     <li>Gender:
                         <ul>
                             <li><input type="radio" value="Boys" id="boys" name="gender" /><label for="boys"> Boys</label></li>
@@ -75,10 +75,11 @@
                 </ul>
             </fieldset>
             <input type="hidden" value="true" />
-            <input type="submit" value="Create Game" />
-            <a href="#">Display Schedule</a>
-            <a href="#">Clear Schedule</a>
+            <input type="submit" value="Create Game" id="submit" />
         </form>
+        <a href="#" id="display">Display Schedule</a>
+        <a href="#" id="clear">Clear Schedule</a>
+        <a href="additem.html" id="addNew" style="display: none;">Add New Game</a>
         <script src="js/main.js"></script>
     </body>
 </html>

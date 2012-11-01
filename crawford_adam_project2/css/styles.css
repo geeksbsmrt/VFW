@@ -5,12 +5,30 @@ html {
 body {
     font-family: "Arial New", Arial, sans-serif;
 }
+h1 {
+    text-shadow: 2px 2px grey;
+    margin: 0px;
+}
+h2 {
+    text-shadow: 2px 2px grey;
+    margin: 0px;
+}
 textarea {
     display: block;
 }
-li {
+ul {
     list-style: none;
+}
+li {
+    list-style: circle;
 }
 .required {
     outline: red solid 2px;
+}
+fieldset {
+    border: hidden;
+    padding: 0px;
+}
+legend {
+    font-weight: bold;
 }
