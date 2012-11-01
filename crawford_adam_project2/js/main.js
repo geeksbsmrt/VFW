@@ -1,12 +1,66 @@
 //Adam Crawford
 //VFW 1211
-//WebApp Part 1
-//10/25/2012
-var sliderPosition = function (slider, textbox) { //Places correct numeric value in text box next to slider
-	//look at current page for value of the argument id's set them to = moving the slider changes the number
-	var x = document.getElementById(textbox);
-	var y = document.getElementById(slider);
-	x.value = y.value;
+//WebApp Part 2
+//10/30/2012
+
+document.addEventListener("DOMContentLoaded", function(){
+
+//shorthand getElementByID
+var getID = function (element) {
+	var selected = document.getElementById(element);
+	return selected;
+};
+//short getElementsByType
+var getType = function (type) {
+	var lmnts = document.getElementsByType(type);
+	return lmnts;
+};
+//short getElementsByTagName
+var getTag = function (tag) {
+	var tags = document.getElementsByTagName(tag);
+	return tags;
+};
+
+// Populate Select Element
+var ageGroups = ["U6", "U8", "U10", "U12", "U14", "U18"];
+var populateAges = function (ages) {
+		var ageItem = getID("gAge"),
+			insertSelect = document.createElement("select"),
+			ogroup = document.createElement("optgroup");
+		ogroup.setAttribute("label", "--Ages--");
+		insertSelect.appendChild(ogroup);
+		insertSelect.setAttribute("id", "ageGroup");
+		for (i = 0, j = ages.length; i < j; i++) {
+			var insertAge = document.createElement("option"),
+				opt = ages[i];
+			insertAge.setAttribute("value", opt);
+			insertAge.innerHTML = opt;
+			insertSelect.appendChild(insertAge);
+		};
+		ageItem.appendChild(insertSelect);
+	};
+//Style input fields
+var changeStyle = function (tag) {
+	if (tag.value === "") {
+		tag.setAttribute("class", "required");
+	} else {
+		tag.removeAttribute("class", "required");
+	}
 }
-//this will set the value in the box as soon as the page loads for all sliders
-window.onload = function() { sliderPosition('refyrs', 'refyrsValue'); sliderPosition('ar1yrs', 'ar1yrsValue'); sliderPosition('ar2yrs', 'ar2yrsValue');}
+var addBlur = function () {
+	var tags = getTag("input");
+	for (i=0, j=tags.length; i<j; i++) {
+		if (tags[i].type === "checkbox" || tags[i].type === "radio" || tags[i].type === "range" || tags[i].type === "submit" || tags[i].type === "hidden") {
+			continue;
+		} else {
+			tags[i].addEventListener("blur", function(){
+				changeStyle(this);
+			});
+		};
+	};
+};
+
+// Call Functions
+populateAges(ageGroups);
+addBlur();
+});

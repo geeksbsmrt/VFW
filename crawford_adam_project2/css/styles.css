@@ -1,0 +1,16 @@
+html { 
+	background: url(../img/field.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+}
+body {
+    font-family: "Arial New", Arial, sans-serif;
+}
+textarea {
+    display: block;
+}
+li {
+    list-style: none;
+}
+.required {
+    outline: red solid 2px;
+}
