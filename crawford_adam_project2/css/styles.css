@@ -1,6 +1,7 @@
 html { 
 	background: url(../img/field.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;
+    width: auto;
 }
 body {
     font-family: "Arial New", Arial, sans-serif;
@@ -19,7 +20,13 @@ textarea {
 ul {
     list-style: none;
 }
-li {
+#data ul {
+    padding: 10px;
+}
+#data ul li {
+    list-style: disc;
+}
+#data ul ul li {
     list-style: circle;
 }
 .required {
