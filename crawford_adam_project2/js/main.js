@@ -1,7 +1,7 @@
 //Adam Crawford
 //VFW 1211
-//WebApp Part 2
-//10/30/2012
+//WebApp Part 3
+//11/2/2012
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -9,31 +9,31 @@ document.addEventListener("DOMContentLoaded", function(){
 var getID = function (element) {
 	var selected = document.getElementById(element);
 	return selected;
-};
+	},
 //short getElementsByType
-var getType = function (type) {
-	var lmnts = document.getElementsByType(type);
-	return lmnts;
-};
+	getType = function (type) {
+		var lmnts = document.getElementsByType(type);
+		return lmnts;
+	},
 //short getElementsByTagName
-var getTag = function (tag) {
-	var tags = document.getElementsByTagName(tag);
-	return tags;
-};
-var gameGender = function () {
+	getTag = function (tag) {
+		var tags = document.getElementsByTagName(tag);
+		return tags;
+	},
+	gameGender = function () {
 	var radios = document.forms[0].gender;
-	for (i=0, j=radios.length; i<j; i++) {
-		if (radios[i].checked) {
-			return radios[i].value;
+		for (i=0, j=radios.length; i<j; i++) {
+			if (radios[i].checked) {
+				return radios[i].value;
+			};
 		};
-	};
-};
-var isComp = function () {
+	},
+	isComp = function () {
 	return getID('gcomp').checked;
-};
+	},
 // Populate Select Element
-var ageGroups = ["U6", "U8", "U10", "U12", "U14", "U18"];
-var populateAges = function (ages) {
+	ageGroups = ["U6", "U8", "U10", "U12", "U14", "U18"],
+	populateAges = function (ages) {
 		var ageItem = getID("gage"),
 			insertSelect = document.createElement("select"),
 			ogroup = document.createElement("optgroup");
@@ -48,51 +48,51 @@ var populateAges = function (ages) {
 			insertSelect.appendChild(insertAge);
 		};
 		ageItem.appendChild(insertSelect);
-	};
+	},
 //Style input fields
-var changeStyle = function (tag) {
-	if (tag.value === "") {
-		tag.setAttribute("class", "required");
-	} else {
-		tag.removeAttribute("class", "required");
-	}
-}
-var addBlur = function () {
-	var tags = getTag("input");
-	for (i=0, j=tags.length; i<j; i++) {
-		if (tags[i].type === "checkbox" || tags[i].type === "radio" || tags[i].type === "range" || tags[i].type === "submit" || tags[i].type === "hidden") {
-			continue;
+	changeStyle = function (tag) {
+		if (tag.value === "") {
+			tag.setAttribute("class", "required");
 		} else {
-			tags[i].addEventListener("blur", function(){
-				changeStyle(this);
-			});
+			tag.removeAttribute("class", "required");
 		};
-	};
-};
-var toggleDisplay = function (state) {
-	switch(state){
-		case "on":
-			getID('createGame').style.display = "none";
-			getID('clear').style.display = "inline";
-			getID('display').style.display = "none";
-			getID('addNew').style.display = "inline";
-			break;
-		case "off":
-			getID('createGame').style.display = "block";
-			getID('clear').style.display = "inline";
-			getID('display').style.display = "inline";
-			getID('data').style.display = "none";
-			getID('addNew').style.display = "none";
-			break;
-		default:
-			return false;
-	};
-};
-var saveData = function () {
-	var comp = isComp();
-	var gend = gameGender();
-	var UUID = Math.floor(Math.random()*10000000000001);
-	var values = {};
+	},
+	addBlur = function () {
+		var tags = getTag("input");
+		for (i=0, j=tags.length; i<j; i++) {
+			if (tags[i].type === "checkbox" || tags[i].type === "radio" || tags[i].type === "range" || tags[i].type === "submit" || tags[i].type === "hidden") {
+				continue;
+			} else {
+				tags[i].addEventListener("blur", function(){
+					changeStyle(this);
+				});
+			};
+		};
+	},
+	toggleDisplay = function (state) {
+		switch(state){
+			case "on":
+				getID('createGame').style.display = "none";
+				getID('clear').style.display = "inline";
+				getID('display').style.display = "none";
+				getID('addNew').style.display = "inline";
+				break;
+			case "off":
+				getID('createGame').style.display = "block";
+				getID('clear').style.display = "inline";
+				getID('display').style.display = "inline";
+				getID('data').style.display = "none";
+				getID('addNew').style.display = "none";
+				break;
+			default:
+				return false;
+		};
+	},
+	saveData = function () {
+		var comp = isComp(),
+			gend = gameGender(),
+			UUID = Math.floor(Math.random()*10000000000001),
+			values = {};
 		values.gDate = ["Game Date: ", getID('gdate').value];
 		values.gTime = ["Game Time: ", getID('gtime').value];
 		values.gField = ["Game Field: ", getID('gfield').value];
@@ -114,49 +114,50 @@ var saveData = function () {
 		values.ar2Grd = ["Grade: ", getID('ar2grade').value];
 		values.ar2Yrs = ["Years Reffing: ", getID('ar2yrs').value];
 		values.ar2Eml = ["Email: ", getID('ar2email').value];
-	localStorage.setItem(UUID, JSON.stringify(values));
-	alert("Added Game to the Schedule.");
-};
-var displayData = function () {
-	toggleDisplay("on");
-	var createDiv = document.createElement("div");
-	createDiv.setAttribute("id", "data");
-	createDiv.setAttribute("class", "prefixed");
-	var createList = document.createElement("ul");
-	createDiv.appendChild(createList);
-	document.body.appendChild(createDiv);
-	getID('data').style.display = "display";
-	for (i=0,j=localStorage.length; i<j; i++) {
-		var createLi = document.createElement("li");
-		createList.appendChild(createLi);
-		var key = localStorage.key(i);
-		var value = localStorage.getItem(key);
-		var obj = JSON.parse(value);
-		var createSubList = document.createElement("ul");
-		createLi.appendChild(createSubList);
-		for (var k in obj) {
-			var createSubLi = document.createElement("li");
-			createSubList.appendChild(createSubLi);
-			var liText = obj[k][0] + " " + obj[k][1];
-			createSubLi.innerHTML = liText;
+		localStorage.setItem(UUID, JSON.stringify(values));
+		alert("Added Game to the Schedule.");
+	},
+	displayData = function () {
+		toggleDisplay("on");
+		var createDiv = document.createElement("div"),
+			createList = document.createElement("ul");
+		createDiv.setAttribute("id", "data");
+		createDiv.setAttribute("class", "prefixed");
+		createDiv.appendChild(createList);
+		document.body.appendChild(createDiv);
+		getID('data').style.display = "display";
+		for (i=0,j=localStorage.length; i<j; i++) {
+			var createLi = document.createElement("li"),
+				linksLi = document.createElement("li"),
+				key = localStorage.key(i),
+				value = localStorage.getItem(key),
+				obj = JSON.parse(value),
+				createSubList = document.createElement("ul");
+			createList.appendChild(createLi);
+			createLi.appendChild(createSubList);
+			for (var k in obj) {
+				var createSubLi = document.createElement("li"),
+					liText = obj[k][0] + " " + obj[k][1];
+				createSubList.appendChild(createSubLi);
+				createSubLi.innerHTML = liText;
+				createSubList.appendChild(linksLi);
+			};
+			//createModifyLinks();
 		};
-	};
-};
-var clearData = function () {
-	localStorage.clear();
-	alert("Cleared");
-	window.location.reload();
-	return false;
-}
-
-
+	},
+	clearData = function () {
+		localStorage.clear();
+		alert("Cleared");
+		window.location.reload();
+		return false;
+	},
+	displaySchedule = getID('display'),
+	clearSchedule = getID('clear'),
+	save = getID('submit');
 // Call Functions
 populateAges(ageGroups);
 addBlur();
-var displaySchedule = getID('display');
 displaySchedule.addEventListener("click", displayData);
-var clearSchedule = getID('clear');
 clearSchedule.addEventListener("click", clearData);
-var save = getID('submit');
 save.addEventListener("click", saveData);
 });
