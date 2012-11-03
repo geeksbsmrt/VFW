@@ -1,7 +1,12 @@
 //Adam Crawford
 //VFW 1211
+<<<<<<< HEAD
 //WebApp Part 3
 //11/2/2012
+=======
+//WebApp Part 2
+//10/30/2012
+>>>>>>> master
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -9,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
 var getID = function (element) {
 	var selected = document.getElementById(element);
 	return selected;
+<<<<<<< HEAD
 	},
 //short getElementsByType
 	getType = function (type) {
@@ -34,6 +40,33 @@ var getID = function (element) {
 // Populate Select Element
 	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	populateAges = function (ages) {
+=======
+};
+//short getElementsByType
+var getType = function (type) {
+	var lmnts = document.getElementsByType(type);
+	return lmnts;
+};
+//short getElementsByTagName
+var getTag = function (tag) {
+	var tags = document.getElementsByTagName(tag);
+	return tags;
+};
+var gameGender = function () {
+	var radios = document.forms[0].gender;
+	for (i=0, j=radios.length; i<j; i++) {
+		if (radios[i].checked) {
+			return radios[i].value;
+		};
+	};
+};
+var isComp = function () {
+	return getID('gcomp').checked;
+};
+// Populate Select Element
+var ageGroups = ["U6", "U8", "U10", "U12", "U14", "U18"];
+var populateAges = function (ages) {
+>>>>>>> master
 		var ageItem = getID("gage"),
 			insertSelect = document.createElement("select"),
 			ogroup = document.createElement("optgroup");
@@ -48,6 +81,7 @@ var getID = function (element) {
 			insertSelect.appendChild(insertAge);
 		};
 		ageItem.appendChild(insertSelect);
+<<<<<<< HEAD
 	},
 //Style input fields
 	changeStyle = function (tag) {
@@ -111,12 +145,64 @@ var getID = function (element) {
 	saveData = function () {
 		var UUID = Math.floor(Math.random()*10000000000001),
 			values = {};
+=======
+	};
+//Style input fields
+var changeStyle = function (tag) {
+	if (tag.value === "") {
+		tag.setAttribute("class", "required");
+	} else {
+		tag.removeAttribute("class", "required");
+	}
+}
+var addBlur = function () {
+	var tags = getTag("input");
+	for (i=0, j=tags.length; i<j; i++) {
+		if (tags[i].type === "checkbox" || tags[i].type === "radio" || tags[i].type === "range" || tags[i].type === "submit" || tags[i].type === "hidden") {
+			continue;
+		} else {
+			tags[i].addEventListener("blur", function(){
+				changeStyle(this);
+			});
+		};
+	};
+};
+var toggleDisplay = function (state) {
+	switch(state){
+		case "on":
+			getID('createGame').style.display = "none";
+			getID('clear').style.display = "inline";
+			getID('display').style.display = "none";
+			getID('addNew').style.display = "inline";
+			break;
+		case "off":
+			getID('createGame').style.display = "block";
+			getID('clear').style.display = "inline";
+			getID('display').style.display = "inline";
+			getID('data').style.display = "none";
+			getID('addNew').style.display = "none";
+			break;
+		default:
+			return false;
+	};
+};
+var saveData = function () {
+	var comp = isComp();
+	var gend = gameGender();
+	var UUID = Math.floor(Math.random()*10000000000001);
+	var values = {};
+>>>>>>> master
 		values.gDate = ["Game Date: ", getID('gdate').value];
 		values.gTime = ["Game Time: ", getID('gtime').value];
 		values.gField = ["Game Field: ", getID('gfield').value];
 		values.gAge = ["Age Group: ", getID('ageGroup').value];
+<<<<<<< HEAD
 		values.gGender = ["Gender: ", gameGender()];
 		values.gComp = ["Is Competetive: ", isComp()];
+=======
+		values.gGender = ["Gender: ", gend];
+		values.gComp = ["Is Competetive: ", comp];
+>>>>>>> master
 		values.gHome = ["Home Team: ", getID('ghome').value];
 		values.gAway = ["Away Team: ", getID('gaway').value];
 		values.gComments = ["Comments: ", getID('gspec').value];
@@ -132,6 +218,7 @@ var getID = function (element) {
 		values.ar2Grd = ["Grade: ", getID('ar2grade').value];
 		values.ar2Yrs = ["Years Reffing: ", getID('ar2yrs').value];
 		values.ar2Eml = ["Email: ", getID('ar2email').value];
+<<<<<<< HEAD
 		localStorage.setItem(UUID, JSON.stringify(values));
 		alert("Added Game to the Schedule.");
 	},
@@ -317,4 +404,51 @@ addBlur();
 displaySchedule.addEventListener("click", displayData);
 clearSchedule.addEventListener("click", clearData);
 save.addEventListener("click", validate);
+=======
+	localStorage.setItem(UUID, JSON.stringify(values));
+	alert("Added Game to the Schedule.");
+};
+var displayData = function () {
+	toggleDisplay("on");
+	var createDiv = document.createElement("div");
+	createDiv.setAttribute("id", "data");
+	createDiv.setAttribute("class", "prefixed");
+	var createList = document.createElement("ul");
+	createDiv.appendChild(createList);
+	document.body.appendChild(createDiv);
+	getID('data').style.display = "display";
+	for (i=0,j=localStorage.length; i<j; i++) {
+		var createLi = document.createElement("li");
+		createList.appendChild(createLi);
+		var key = localStorage.key(i);
+		var value = localStorage.getItem(key);
+		var obj = JSON.parse(value);
+		var createSubList = document.createElement("ul");
+		createLi.appendChild(createSubList);
+		for (var k in obj) {
+			var createSubLi = document.createElement("li");
+			createSubList.appendChild(createSubLi);
+			var liText = obj[k][0] + " " + obj[k][1];
+			createSubLi.innerHTML = liText;
+		};
+	};
+};
+var clearData = function () {
+	localStorage.clear();
+	alert("Cleared");
+	window.location.reload();
+	return false;
+}
+
+
+// Call Functions
+populateAges(ageGroups);
+addBlur();
+var displaySchedule = getID('display');
+displaySchedule.addEventListener("click", displayData);
+var clearSchedule = getID('clear');
+clearSchedule.addEventListener("click", clearData);
+var save = getID('submit');
+save.addEventListener("click", saveData);
+>>>>>>> master
 });

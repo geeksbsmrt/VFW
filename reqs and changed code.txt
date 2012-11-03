@@ -116,3 +116,21 @@ ONLY INCLUDE NECESSARY ITEMS
         </form>
     </body>
 </html>
+
+
+// Displays values for sliders
+// Make this insert Dynamically chaning text that is not in a box
+//var sliderPosition = function (slider, textbox) { //Places correct numeric value in text box next to slider
+//	//look at current page for value of the argument id's set them to = moving the slider changes the number
+//	var x = document.getElementById(textbox);
+//	var y = document.getElementById(slider);
+//	x.value = y.value;
+//}
+//sliderPosition('refyrs', 'refyrsValue'); sliderPosition('ar1yrs', 'ar1yrsValue'); sliderPosition('ar2yrs', 'ar2yrsValue');
+
+// Modify value based on slider change
+//var changeSliderValue = function (array) {
+//	for (i=0, j=array.length; i<j; i++) {
+//		array[i].addEventListener("change", sliderPosition())
+//	};
+//};
