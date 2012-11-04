@@ -6,14 +6,10 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 //shorthand getElementByID
-var getID = function (element) {
+var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
+	getID = function (element) {
 	var selected = document.getElementById(element);
 	return selected;
-	},
-//short getElementsByType
-	getType = function (type) {
-		var lmnts = document.getElementsByType(type);
-		return lmnts;
 	},
 //short getElementsByTagName
 	getTag = function (tag) {
@@ -32,7 +28,6 @@ var getID = function (element) {
 	return getID('gcomp').checked;
 	},
 // Populate Select Element
-	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	populateAges = function (ages) {
 		var ageItem = getID("gage"),
 			insertSelect = document.createElement("select"),
@@ -76,6 +71,7 @@ var getID = function (element) {
 				getID('clear').style.display = "inline";
 				getID('display').style.display = "none";
 				getID('addNew').style.display = "inline";
+				getID('errors').style.display = "none";
 				break;
 			case "off":
 				getID('createGame').style.display = "block";
@@ -108,9 +104,13 @@ var getID = function (element) {
 		deleteLink.innerHTML = deleteText;
 		linksLi.appendChild(deleteLink);
 	},
-	saveData = function () {
-		var UUID = Math.floor(Math.random()*10000000000001),
-			values = {};
+	saveData = function (key) {
+		if (!key) {
+			var UUID = Math.floor(Math.random()*10000000000001);
+		} else {
+			UUID = key;
+		}
+		var values = {};
 		values.gDate = ["Game Date: ", getID('gdate').value];
 		values.gTime = ["Game Time: ", getID('gtime').value];
 		values.gField = ["Game Field: ", getID('gfield').value];
@@ -133,7 +133,11 @@ var getID = function (element) {
 		values.ar2Yrs = ["Years Reffing: ", getID('ar2yrs').value];
 		values.ar2Eml = ["Email: ", getID('ar2email').value];
 		localStorage.setItem(UUID, JSON.stringify(values));
-		alert("Added Game to the Schedule.");
+		if (!key) {
+			alert("Added Game to the Schedule.");
+		} else {
+			alert("Updated Game information.");
+		};
 	},
 	displayData = function () {
 		toggleDisplay("on");
@@ -203,19 +207,17 @@ var getID = function (element) {
 		getID('ar2grade').value = values.ar2Grd[1];
 		getID('ar2yrs').value = values.ar2Yrs[1];
 		getID('ar2email').value = values.ar2Eml[1];
-		
-		save.removeEventListener("click", storeData);
 		getID('submit').value = "Edit Match";
 		var editSubmit = getID('submit');
 		editSubmit.addEventListener("click", validate);
 		editSubmit.key = this.key;
 	},
-	validate = function () {
+	validate = function (e) {
 		var getDate = getID('gdate'),
 			getTime = getID('gtime'),
 			getField = getID('gfield'),
 			getAge = getID('ageGroup'),
-			getRadios = document.forms[0].gender;
+			getRadios = document.forms[0].gender,
 			getHome = getID('ghome'),
 			getAway = getID('gaway'),
 			getRef = getID('refname'),
@@ -224,78 +226,95 @@ var getID = function (element) {
 			getAR1Eml = getID('ar1email'),
 			getAR2Name = getID('ar2name'),
 			getAR2Eml = getID('ar2email'),
-			errorArray = [];
-			
-			if (getDate.value === "") {
-				var gDateError = "Please enter a date.";
-				errorArray.push(gDateError);
-				getDate.setAttribute("class", "required");
-			};
-			if (getTime.value === "") {
-				var gTimeError = "Please enter a time.";
-				errorArray.push(gTimeError);
-				getTime.setAttribute("class", "required");
-			};
-			if (getField.value === "") {
-				var gFieldError = "Please enter a field.";
-				errorArray.push(gFieldError);
-				getField.setAttribute("class", "required");
-			};
-			if (getAge.value === "Select") {
-				var gAgeError = "Please select an age.";
-				errorArray.push(gFieldError);
-				getAge.setAttribute("class", "required");
-			};
-			var emlRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;  //modified end of RE to accept addresses from .info and TLD's with 4 chars in them
-			if(!(re.exec(getRefEml.value))) {
-				var refEmlError = "Please enter a valid email address for the Referee.";
-				getRefEml.setAttribute("class", "required");
-				errorArray.push(refEmlError);
-			};
-			if(!(re.exec(getAR1Eml.value))) {
-				var AR1EmlError = "Please enter a valid email address for AR1.";
-				getAR1Eml.setAttribute("class", "required");
-				errorArray.push(AR1EmlError);
-			};
-			if(!(re.exec(getAR2Eml.value))) {
-				var AR2EmlError = "Please enter a valid email address for AR2.";
-				getAR2Eml.setAttribute("class", "required");
-				errorArray.push(AR2EmlError);
-			};
-			if (getHome.value === "") {
-				var gHomeError = "Please enter a Home team.";
-				errorArray.push(gHomeError);
-				getHome.setAttribute("class", "required");
-			};
-			if (getAway.value === "") {
-				var gAwayError = "Please enter an Away team.";
-				errorArray.push(gTimeError);
-				getAway.setAttribute("class", "required");
-			};
-			if (getRef.value === "") {
-				var gRefError = "Please enter a Referee name.";
-				errorArray.push(gRefError);
-				getRef.setAttribute("class", "required");
-			};
-			if (getAR1Name.value === "") {
-				var gAR1Error = "Please enter an AR1 name.";
-				errorArray.push(gAR1Error);
-				getAR1Name.setAttribute("class", "required");
-			};
-			if (getAR2Name.value === "") {
-				var gAR2Error = "Please enter an AR2 name.";
-				errorArray.push(gAR2Error);
-				getAR2Name.setAttribute("class", "required");
-			};
-			for (i=0, j=getRadios.length; i<j; i++) {
-				if (getRadios[i].checked) {
-					break;
-				} else if (i===j) {
-					var gGendError = "Please select a game gender.";
-					errorArray.push(gGendError);
-					getRadios.setAttribute("class", "required");
+			errorArray = [ ],
+			errMsg = getID('errors'),
+			emlRE = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;  //modified end of RE to accept addresses from .info and TLD's with 4 chars in them
+		if (getDate.value === "") {
+			var gDateError = "Please enter a date.";
+			errorArray.push(gDateError);
+			getDate.setAttribute("class", "required");
+		};
+		if (getTime.value === "") {
+			var gTimeError = "Please enter a time.";
+			errorArray.push(gTimeError);
+			getTime.setAttribute("class", "required");
+		};
+		if (getField.value === "") {
+			var gFieldError = "Please enter a field.";
+			errorArray.push(gFieldError);
+			getField.setAttribute("class", "required");
+		};
+		if (getAge.value === "Select") {
+			var gAgeError = "Please select an age.";
+			errorArray.push(gAgeError);
+			getAge.setAttribute("class", "required");
+		};
+		for (i=0, j=getRadios.length; i<j; i++) {
+			if (getRadios[i].checked) {
+				for (k=0, l=getRadios.length; k<l; k++) {
+					getRadios[k].removeAttribute("class", "required");
+				};
+				break;
+			} else if (i === j-1) {
+				var gGendError = "Please select a game gender.";
+				errorArray.push(gGendError);
+				for (k=0, l=getRadios.length; k<l; k++) {
+					getRadios[k].setAttribute("class", "required");
 				};
 			};
+		};
+		if (getHome.value === "") {
+			var gHomeError = "Please enter a Home team.";
+			errorArray.push(gHomeError);
+			getHome.setAttribute("class", "required");
+		};
+		if (getAway.value === "") {
+			var gAwayError = "Please enter an Away team.";
+			errorArray.push(gAwayError);
+			getAway.setAttribute("class", "required");
+		};
+		if (getRef.value === "") {
+			var gRefError = "Please enter a Referee name.";
+			errorArray.push(gRefError);
+			getRef.setAttribute("class", "required");
+		};
+		if(!(emlRE.exec(getRefEml.value))) {
+			var refEmlError = "Please enter a valid email address for the Referee.";
+			getRefEml.setAttribute("class", "required");
+			errorArray.push(refEmlError);
+		};
+		if (getAR1Name.value === "") {
+			var gAR1Error = "Please enter an AR1 name.";
+			errorArray.push(gAR1Error);
+			getAR1Name.setAttribute("class", "required");
+		};
+		if(!(emlRE.exec(getAR1Eml.value))) {
+			var AR1EmlError = "Please enter a valid email address for AR1.";
+			getAR1Eml.setAttribute("class", "required");
+			errorArray.push(AR1EmlError);
+		};
+		if (getAR2Name.value === "") {
+			var gAR2Error = "Please enter an AR2 name.";
+			errorArray.push(gAR2Error);
+			getAR2Name.setAttribute("class", "required");
+		};
+		if(!(emlRE.exec(getAR2Eml.value))) {
+			var AR2EmlError = "Please enter a valid email address for AR2.";
+			getAR2Eml.setAttribute("class", "required");
+			errorArray.push(AR2EmlError);
+		};
+		if (errorArray.length >= 1) {
+			errMsg.innerHTML = "";
+			for (i=0, j=errorArray.length; i<j ; i++) {
+				var txt = document.createElement('li');
+				txt.innerHTML = errorArray[i];
+				errMsg.appendChild(txt);
+			};
+			e.preventDefault();
+			return false;
+		} else {
+			saveData(this.key)
+		};
 	},
 	deleteMatch = function () {
 		var ask = confirm("Delete this match?");
