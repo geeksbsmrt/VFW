@@ -1,4 +1,4 @@
-html { 
+#add { 
 	background: url(../img/field.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;
     width: auto;
@@ -17,17 +17,8 @@ h2 {
 textarea {
     display: block;
 }
-ul {
+form ul {
     list-style: none;
-}
-#data ul {
-    padding: 10px;
-}
-#data ul li {
-    list-style: disc;
-}
-#data ul ul li {
-    list-style: circle;
 }
 .required {
     outline: red solid 2px;
@@ -38,4 +29,16 @@ fieldset {
 }
 legend {
     font-weight: bold;
+}
+#data > ul > li {
+	margin-bottom: 25px;
+}
+#errors {
+	background: red;
+	color: white;
+	
+}
+#index {
+	background: url(../img/fieldlights.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
 }

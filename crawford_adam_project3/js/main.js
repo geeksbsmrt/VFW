@@ -1,7 +1,7 @@
 //Adam Crawford
 //VFW 1211
 //WebApp Part 3
-//11/2/2012
+//11/7/2012
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -326,9 +326,33 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			alert("Match not deleted.");
 		};
 	},
+	initSlider = function () {
+		var refslider = getID('refyrs'),
+			ar1slider = getID('ar1yrs'),
+			ar2slider = getID('ar2yrs'),
+			sliderValue = function (slider, div) {
+				var divID = getID(div);
+				if (slider.value === "0") {
+					divID.innerHTML = "Less than a year";
+				} else if (slider.value === "10") {
+					divID.innerHTML = "10 or more years";
+				} else if (slider.value === "1") {
+				divID.innerHTML = slider.value + " year";
+				} else {
+				divID.innerHTML = slider.value + " years";
+				};
+			};
+		refslider.addEventListener("change", function(){sliderValue(refslider, "refSliderText")});
+		ar1slider.addEventListener("change", function(){sliderValue(ar1slider, "ar1SliderText")});
+		ar2slider.addEventListener("change", function(){sliderValue(ar2slider, "ar2SliderText")});
+		sliderValue(refslider, "refSliderText");
+		sliderValue(ar1slider, "ar1SliderText");
+		sliderValue(ar2slider, "ar2SliderText");
+	},
 	displaySchedule = getID('display'),
 	clearSchedule = getID('clear'),
 	save = getID('submit')
+	
 ;
 // Call Functions
 populateAges(ageGroups);
@@ -336,4 +360,5 @@ addBlur();
 displaySchedule.addEventListener("click", displayData);
 clearSchedule.addEventListener("click", clearData);
 save.addEventListener("click", validate);
+initSlider()
 });
