@@ -333,13 +333,13 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			sliderValue = function (slider, div) {
 				var divID = getID(div);
 				if (slider.value === "0") {
-					divID.innerHTML = "Less than a year";
+					divID.innerHTML = " Less than a year";
 				} else if (slider.value === "10") {
-					divID.innerHTML = "10 or more years";
+					divID.innerHTML = " 10 or more years";
 				} else if (slider.value === "1") {
 				divID.innerHTML = slider.value + " year";
 				} else {
-				divID.innerHTML = slider.value + " years";
+				divID.innerHTML = " " + slider.value + " years";
 				};
 			};
 		refslider.addEventListener("change", function(){sliderValue(refslider, "refSliderText")});

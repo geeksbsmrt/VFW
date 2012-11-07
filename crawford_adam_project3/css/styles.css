@@ -36,9 +36,11 @@ legend {
 #errors {
 	background: red;
 	color: white;
-	
 }
 #index {
 	background: url(../img/fieldlights.jpg) no-repeat center center fixed; 
 	-webkit-background-size: cover;
+}
+.slider {
+	display: inline;
 }
