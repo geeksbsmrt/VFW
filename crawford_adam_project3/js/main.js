@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function(){
 //shorthand getElementByID
 var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	getID = function (element) {
-	var selected = document.getElementById(element);
-	return selected;
+		var selected = document.getElementById(element);
+		return selected;
 	},
 //short getElementsByTagName
 	getTag = function (tag) {
@@ -25,7 +25,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 		};
 	},
 	isComp = function () {
-	return getID('gcomp').checked;
+		return getID('gcomp').checked;
 	},
 // Populate Select Element
 	populateAges = function (ages) {
@@ -337,9 +337,9 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				} else if (slider.value === "10") {
 					divID.innerHTML = " 10 or more years";
 				} else if (slider.value === "1") {
-				divID.innerHTML = slider.value + " year";
+					divID.innerHTML = slider.value + " year";
 				} else {
-				divID.innerHTML = " " + slider.value + " years";
+					divID.innerHTML = " " + slider.value + " years";
 				};
 			};
 		refslider.addEventListener("change", function(){sliderValue(refslider, "refSliderText")});
@@ -352,7 +352,6 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	displaySchedule = getID('display'),
 	clearSchedule = getID('clear'),
 	save = getID('submit')
-	
 ;
 // Call Functions
 populateAges(ageGroups);
