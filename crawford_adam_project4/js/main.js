@@ -206,16 +206,31 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 					createSubLi.appendChild(createAR2Ul);
 				} else if (k === "refGrd" || k === "refYrs" || k === "refEml") {
 					var createRefLi = document.createElement('li');
-					createRefUl.appendChild(createRefLi);
-					createRefLi.innerHTML = liText;
+					if (k === "refYrs" && obj[k][1] === "10") {
+						createRefUl.appendChild(createRefLi);
+						createRefLi.innerHTML = "Years Reffing: 10 or more";
+					} else {
+						createRefUl.appendChild(createRefLi);
+						createRefLi.innerHTML = liText;
+					}
 				} else if (k === "ar1Grd" || k === "ar1Yrs" || k === "ar1Eml") {
 					var createAR1Li = document.createElement('li');
-					createAR1Ul.appendChild(createAR1Li);
-					createAR1Li.innerHTML = liText;
+					if (k === "ar1Yrs" && obj[k][1] === "10") {
+						createAR1Ul.appendChild(createAR1Li);
+						createAR1Li.innerHTML = "Years Reffing: 10 or more";
+					} else {
+						createAR1Ul.appendChild(createAR1Li);
+						createAR1Li.innerHTML = liText;
+					}
 				} else if (k === "ar2Grd" || k === "ar2Yrs" || k === "ar2Eml") {
 					var createAR2Li = document.createElement('li');
-					createAR2Ul.appendChild(createAR2Li);
-					createAR2Li.innerHTML = liText;
+					if (k === "ar2Yrs" && obj[k][1] === "10") {
+						createAR2Ul.appendChild(createAR2Li);
+						createAR2Li.innerHTML = "Years Reffing: 10 or more";
+					} else {
+						createAR2Ul.appendChild(createAR2Li);
+						createAR2Li.innerHTML = liText;
+					}
 				} else if (k === "gComp") {
 					if (obj[k][1] === "true") {
 						var createImgSublist = getID(objkey + "dataImages"),
@@ -409,13 +424,11 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			sliderValue = function (slider, div) {
 				var divID = getID(div);
 				if (slider.value === "0") {
-					divID.innerHTML = " Less than a year";
+					divID.innerHTML = " Less than one";
 				} else if (slider.value === "10") {
-					divID.innerHTML = " 10 or more years";
-				} else if (slider.value === "1") {
-					divID.innerHTML = slider.value + " year";
+					divID.innerHTML = " 10 or more";
 				} else {
-					divID.innerHTML = " " + slider.value + " years";
+					divID.innerHTML = " " + slider.value;
 				};
 			};
 		refslider.addEventListener("change", function(){sliderValue(refslider, "refSliderText")});
