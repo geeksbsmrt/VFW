@@ -218,9 +218,9 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				} else {
 					createSubList.appendChild(createSubLi);
 					createSubLi.innerHTML = liText;
-					linksLi.setAttribute("id", "modifyLinks");
-					createSubList.appendChild(linksLi);
 				};
+				linksLi.setAttribute("id", "modifyLinks");
+				createSubList.appendChild(linksLi);
 			};
 			createModifyLinks(localStorage.key(i), linksLi);
 		};
