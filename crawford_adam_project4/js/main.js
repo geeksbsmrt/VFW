@@ -1,7 +1,7 @@
 //Adam Crawford
 //VFW 1211
-//WebApp Part 3
-//11/7/2012
+//WebApp Part 4
+//11/12/2012
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -74,10 +74,14 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				getID('errors').style.display = "none";
 				break;
 			case "off":
+				var dataDiv = getID('data');
 				getID('createGame').style.display = "block";
 				getID('clear').style.display = "inline";
 				getID('display').style.display = "inline";
-				getID('data').style.display = "none";
+				//Changed display=none for Data div to remove it from DOM
+				//If I was clicking edit, didn't make changes, clicked Display,
+				//Clicked Edit again, it added another div with the ID of Data
+				dataDiv.parentElement.removeChild(dataDiv);
 				getID('addNew').style.display = "none";
 				getID('errors').style.display = "block";
 				break;
@@ -140,8 +144,26 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			alert("Updated Game information.");
 		};
 	},
+	displayJSON = function () {
+		for (var i in json) {
+			var UUID = Math.floor(Math.random()*10000000000001);
+			localStorage.setItem(UUID, JSON.stringify(json[i]));
+		};
+	},
+	addImage = function (createSubList, genderImage) {
+		var imgLi = document.createElement('li'),
+			gendImg = document.createElement('img');
+		imgLi.setAttribute("name", "genderImages");
+		gendImg.setAttribute("src", "img/" + genderImage + ".png");
+		createSubList.appendChild(imgLi);
+		imgLi.appendChild(gendImg);
+	},
 	displayData = function () {
 		toggleDisplay("on");
+		if (localStorage.length === 0) {
+			alert("There are no matches stored.  Using default data.");
+			displayJSON();
+		};
 		var createDiv = document.createElement("div"),
 			createList = document.createElement("ul");
 		createDiv.setAttribute("id", "data");
@@ -157,6 +179,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				createSubList = document.createElement("ul");
 			createList.appendChild(createLi);
 			createLi.appendChild(createSubList);
+			addImage(createSubList, obj.gGender[1]);
 			for (var k in obj) {
 				var createSubLi = document.createElement("li"),
 					liText = obj[k][0] + " " + obj[k][1];
