@@ -1,7 +1,7 @@
 //Adam Crawford
 //VFW 1211
 //WebApp Part 4
-//11/12/2012
+//11/14/2012
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -152,14 +152,15 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			localStorage.setItem(UUID, JSON.stringify(json[i]));
 		};
 	},
-	addImage = function (createSubList, genderImage) {
+	addImage = function (createSubList, genderImage, key) {
 		var imgLi = document.createElement('li'),
 			createImgSubList = document.createElement('ul'),
 			gendImg = document.createElement('img');
-		imgLi.setAttribute("name", "genderImages");
 		gendImg.setAttribute("src", "img/" + genderImage + ".png");
 		createSubList.appendChild(createImgSubList);
-		createImgSubList.setAttribute("id", "dataImages")
+		imgLi.setAttribute("id", key + "dataImages");
+		createImgSubList.setAttribute("class", "noListStyle");
+		gendImg.setAttribute("height", "32px");
 		createImgSubList.appendChild(imgLi);
 		imgLi.appendChild(gendImg);
 	},
@@ -184,7 +185,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				createSubList = document.createElement("ul");
 			createList.appendChild(createLi);
 			createLi.appendChild(createSubList);
-			addImage(createSubList, obj.gGender[1]);
+			addImage(createSubList, obj.gGender[1], objkey);
 			for (var k in obj) {
 				var createSubLi = document.createElement("li"),
 					liText = obj[k][0] + " " + obj[k][1];
@@ -215,6 +216,22 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 					var createAR2Li = document.createElement('li');
 					createAR2Ul.appendChild(createAR2Li);
 					createAR2Li.innerHTML = liText;
+				} else if (k === "gComp") {
+					if (obj[k][1] === "true") {
+						var createImgSublist = getID(objkey + "dataImages"),
+							imgLi = document.createElement('li'),
+							compImg = document.createElement('img');
+						compImg.setAttribute("src", "img/star.png");
+						compImg.setAttribute("height", "16px");
+						compImg.setAttribute("align", "top");
+						createSubList.appendChild(createSubLi);
+						createSubLi.innerHTML = liText;
+						createImgSublist.appendChild(compImg);
+						//imgLi.appendChild(compImg);
+					} else {
+						createSubList.appendChild(createSubLi);
+						createSubLi.innerHTML = liText;
+					}
 				} else {
 					createSubList.appendChild(createSubLi);
 					createSubLi.innerHTML = liText;

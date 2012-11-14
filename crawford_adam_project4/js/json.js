@@ -45,7 +45,7 @@ var json = {
         "ar2Yrs": ["Years Reffing: ", "10"],
         "ar2Eml": ["E-Mail: ", "test@test.com"]
     },
-        "match3": {
+    "match3": {
         "gDate": ["Game Date: ", "2012-10-27"],
         "gTime": ["Game Time: ", "11:00"],
         "gField": ["Game Field: ", "2"],
@@ -68,7 +68,7 @@ var json = {
         "ar2Yrs": ["Years Reffing: ", "10"],
         "ar2Eml": ["E-Mail: ", "billcrawford@polk-county.net"]
     },
-        "match4": {
+    "match4": {
         "gDate": ["Game Date: ", "2012-10-27"],
         "gTime": ["Game Time: ", "13:00"],
         "gField": ["Game Field: ", "2"],

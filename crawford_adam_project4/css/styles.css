@@ -31,9 +31,6 @@ legend {
 #data > ul > li {
 	margin-bottom: 25px;
 }
-#data img {
-	height: 32px;
-}
 #errors {
 	background: red;
 	color: white;
@@ -45,7 +42,7 @@ legend {
 #index div {
 	margin: 10px;
 }
-#dataImages {
+.noListStyle {
 	list-style: none;
 	display: inline;
 	margin: 0px;
