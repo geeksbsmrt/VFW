@@ -72,6 +72,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				getID('display').style.display = "none";
 				getID('addNew').style.display = "inline";
 				getID('errors').style.display = "none";
+				getID('content').style.display = "none";
 				break;
 			case "off":
 				var dataDiv = getID('data');
@@ -84,6 +85,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				dataDiv.parentElement.removeChild(dataDiv);
 				getID('addNew').style.display = "none";
 				getID('errors').style.display = "block";
+				getID('content').style.display = "block";
 				break;
 			default:
 				return false;
@@ -152,10 +154,13 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	},
 	addImage = function (createSubList, genderImage) {
 		var imgLi = document.createElement('li'),
+			createImgSubList = document.createElement('ul'),
 			gendImg = document.createElement('img');
 		imgLi.setAttribute("name", "genderImages");
 		gendImg.setAttribute("src", "img/" + genderImage + ".png");
-		createSubList.appendChild(imgLi);
+		createSubList.appendChild(createImgSubList);
+		createImgSubList.setAttribute("id", "dataImages")
+		createImgSubList.appendChild(imgLi);
 		imgLi.appendChild(gendImg);
 	},
 	displayData = function () {
@@ -173,8 +178,8 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 		for (i=0,j=localStorage.length; i<j; i++) {
 			var createLi = document.createElement("li"),
 				linksLi = document.createElement("li"),
-				key = localStorage.key(i),
-				value = localStorage.getItem(key),
+				objkey = localStorage.key(i),
+				value = localStorage.getItem(objkey),
 				obj = JSON.parse(value),
 				createSubList = document.createElement("ul");
 			createList.appendChild(createLi);
@@ -183,10 +188,39 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 			for (var k in obj) {
 				var createSubLi = document.createElement("li"),
 					liText = obj[k][0] + " " + obj[k][1];
-				createSubList.appendChild(createSubLi);
-				createSubLi.innerHTML = liText;
-				linksLi.setAttribute("id", "modifyLinks");
-				createSubList.appendChild(linksLi);
+				if (k === "ref") {
+					var createRefUl = document.createElement('ul');
+					createSubList.appendChild(createSubLi);
+					createSubLi.innerHTML = liText;
+					createSubList.appendChild(createRefUl);
+				} else if (k === "ar1") {
+					var createAR1Ul = document.createElement('ul');
+					createSubList.appendChild(createSubLi);
+					createSubLi.innerHTML = liText;
+					createSubLi.appendChild(createAR1Ul);
+				} else if (k === "ar2") {
+					var createAR2Ul = document.createElement('ul');
+					createSubList.appendChild(createSubLi);
+					createSubLi.innerHTML = liText;
+					createSubLi.appendChild(createAR2Ul);
+				} else if (k === "refGrd" || k === "refYrs" || k === "refEml") {
+					var createRefLi = document.createElement('li');
+					createRefUl.appendChild(createRefLi);
+					createRefLi.innerHTML = liText;
+				} else if (k === "ar1Grd" || k === "ar1Yrs" || k === "ar1Eml") {
+					var createAR1Li = document.createElement('li');
+					createAR1Ul.appendChild(createAR1Li);
+					createAR1Li.innerHTML = liText;
+				} else if (k === "ar2Grd" || k === "ar2Yrs" || k === "ar2Eml") {
+					var createAR2Li = document.createElement('li');
+					createAR2Ul.appendChild(createAR2Li);
+					createAR2Li.innerHTML = liText;
+				} else {
+					createSubList.appendChild(createSubLi);
+					createSubLi.innerHTML = liText;
+					linksLi.setAttribute("id", "modifyLinks");
+					createSubList.appendChild(linksLi);
+				};
 			};
 			createModifyLinks(localStorage.key(i), linksLi);
 		};
@@ -339,6 +373,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 		var editSubmit = getID('submit');
 		editSubmit.addEventListener("click", validate);
 		editSubmit.key = this.key;
+		initSlider();
 	},
 	deleteMatch = function () {
 		var ask = confirm("Delete this match?");
