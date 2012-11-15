@@ -210,6 +210,9 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 					if (k === "refYrs" && obj[k][1] === "10") {
 						createRefUl.appendChild(createRefLi);
 						createRefLi.innerHTML = "Years Reffing: 10 or more";
+					} else if (k === "refYrs" && obj[k][1] === "0") {
+						createRefUl.appendChild(createRefLi);
+						createRefLi.innerHTML = "Years Reffing: Less than one";
 					} else if (k === "refEml") {
 						refEmailLink.href="mailto:" + obj[k][1];
 						refEmailLink.innerHTML = obj[k][1];
@@ -226,6 +229,9 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 					if (k === "ar1Yrs" && obj[k][1] === "10") {
 						createAR1Ul.appendChild(createAR1Li);
 						createAR1Li.innerHTML = "Years Reffing: 10 or more";
+					} else if (k === "ar1Yrs" && obj[k][1] === "0") {
+						createAR1Ul.appendChild(createAR1Li);
+						createAR1Li.innerHTML = "Years Reffing: Less than one";
 					} else if (k === "ar1Eml") {
 						ar1EmailLink.href="mailto:" + obj[k][1];
 						ar1EmailLink.innerHTML = obj[k][1];
@@ -242,6 +248,9 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 					if (k === "ar2Yrs" && obj[k][1] === "10") {
 						createAR2Ul.appendChild(createAR2Li);
 						createAR2Li.innerHTML = "Years Reffing: 10 or more";
+					} else if (k === "ar2Yrs" && obj[k][1] === "0") {
+						createAR2Ul.appendChild(createAR2Li);
+						createAR2Li.innerHTML = "Years Reffing: Less than one";
 					} else if (k === "ar2Eml") {
 						ar2EmailLink.href="mailto:" + obj[k][1];
 						ar2EmailLink.innerHTML = obj[k][1];
