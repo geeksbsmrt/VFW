@@ -253,7 +253,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 						createAR2Li.innerHTML = liText;
 					}
 				} else if (k === "gComp") {
-					if (obj[k][1] === "true") {
+					if (obj[k][1].toString() === "true") {
 						var createImgSublist = getID(objkey + "dataImages"),
 							imgLi = document.createElement('li'),
 							compImg = document.createElement('img');
