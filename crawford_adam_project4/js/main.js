@@ -263,7 +263,6 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 						createSubList.appendChild(createSubLi);
 						createSubLi.innerHTML = liText;
 						createImgSublist.appendChild(compImg);
-						//imgLi.appendChild(compImg);
 					} else {
 						createSubList.appendChild(createSubLi);
 						createSubLi.innerHTML = liText;
