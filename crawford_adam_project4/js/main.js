@@ -260,6 +260,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 	clearData = function () {
 		localStorage.clear();
 		alert("Cleared");
+		window.location = "#";
 		window.location.reload();
 		return false;
 	},
@@ -362,6 +363,7 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 				errMsg.appendChild(txt);
 			};
 			e.preventDefault();
+			window.location = "#errors"
 			return false;
 		} else {
 			saveData(this.key)
@@ -438,6 +440,13 @@ var	ageGroups = ["Select", "U6", "U8", "U10", "U12", "U14", "U18"],
 		sliderValue(ar1slider, "ar1SliderText");
 		sliderValue(ar2slider, "ar2SliderText");
 	},
+	hash = function () {
+		if (window.location.hash) {
+			if (window.location.hash.substr(1) === "show") {
+				displayData();
+			};
+		};
+	},
 	displaySchedule = getID('display'),
 	clearSchedule = getID('clear'),
 	save = getID('submit')
@@ -448,5 +457,6 @@ addBlur();
 displaySchedule.addEventListener("click", displayData);
 clearSchedule.addEventListener("click", clearData);
 save.addEventListener("click", validate);
-initSlider()
+initSlider();
+hash();
 });
